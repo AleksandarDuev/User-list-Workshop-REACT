@@ -1,18 +1,25 @@
+import { useEffect, useState } from "react";
 import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
 import "./App.css";
 import SearchBar from "./components/search/SearchBar";
-import UserSection from "./components/user-setion/UserSection";
+import UserList from "./components/user-list/UserList";
 
 function App() {
+    const baseUrl = "http://localhost:3005/api";
+    const [users, setUsers] = useState([]);
 
-  // const bace
-  //   useEffect(()=>{
+    useEffect(() => {
+        fetch(`${baseUrl}/users`)
+            .then((res) => res.json())
+            .then((result) => {
+                setUsers(result.users);
+            });
+    }, []);
 
-  //   },[])
-  
-  
-  return (
+    console.log(users);
+
+    return (
         <div>
             <Header />
 
@@ -20,7 +27,7 @@ function App() {
                 {/* <!-- Section component  --> */}
                 <section className="card users-container">
                     <SearchBar />
-                    <UserSection />
+                    <UserList users={users} />
 
                     {/* <!-- New user button  --> */}
                     <button className="btn-add btn">Add new user</button>
