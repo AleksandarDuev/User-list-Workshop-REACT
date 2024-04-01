@@ -1,18 +1,21 @@
-const UserItem = ({ firstName, lastName, email, phoneNumber, createdAt }) => {
+const UserItem = ({ user, detailsClickHandler }) => {
+    const blankUrl =
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
+
     return (
         <tr>
             <td>
                 <img
-                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-                    alt="Peter's profile"
+                    src={user.imageUrl || blankUrl}
+                    alt={`${user.firstName}'s profile`}
                     className="image"
                 />
             </td>
-            <td>{firstName}</td>
-            <td>{lastName}</td>
-            <td>{email}</td>
-            <td>{phoneNumber}</td>
-            <td>{createdAt}</td>
+            <td>{user.firstName}</td>
+            <td>{user.lastName}</td>
+            <td>{user.email}</td>
+            <td>{user.phoneNumber}</td>
+            <td>{user.createdAt}</td>
 
             <td className="actions">
                 <button className="btn edit-btn" title="Edit">
@@ -49,7 +52,11 @@ const UserItem = ({ firstName, lastName, email, phoneNumber, createdAt }) => {
                         ></path>
                     </svg>
                 </button>
-                <button className="btn info-btn" title="Info">
+                <button
+                    className="btn info-btn"
+                    title="Info"
+                    onClick={() => detailsClickHandler(user.firstName)}
+                >
                     <svg
                         aria-hidden="true"
                         focusable="false"
